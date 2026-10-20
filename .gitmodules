@@ -74,3 +74,6 @@
 	path = Common_core/ft_transcendence_125
 	url = git@github.com:Mechard-Organization/ft_transcendence_125.git
 	branch = main
+[submodule "Post_CC/Unrealeased/snow-crash"]
+	path = Post_CC/Unrealeased/snow-crash
+	url = https://github.com/Mechard-Organization/snow-crash.git
