@@ -1,0 +1,63 @@
+networks:
+  inception:
+    name: inception
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mechard/data/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mechard/data/mariadb
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    image: mariadb
+    pull_policy: never
+    env_file: ../.env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks: [inception]
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$DB_ROOT_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+    container_name: wordpress
+    image: wordpress
+    pull_policy: never
+    env_file: ../.env
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - wordpress_data:/var/www/html
+    networks: [inception]
+    restart: always
+
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    image: nginx
+    pull_policy: never
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html:ro
+    networks: [inception]
+    restart: always

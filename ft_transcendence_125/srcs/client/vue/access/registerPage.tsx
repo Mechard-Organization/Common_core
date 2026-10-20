@@ -1,0 +1,187 @@
+import { useState, FormEvent } from "react";
+import { User } from "lucide-react";
+import { validatePassword, validateEmail } from "../../../services/validate.service.js";
+import Footer from "../ts/Footer.js";
+type RegisterResponse = {
+  error?: string;
+  message?: string;
+};
+
+export default function RegisterPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [mail, setMail] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("/uploads/profil/default.jpeg")
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmitRegister = async (e: FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    const u = username.trim();
+    const p = password.trim();
+    const m = mail.trim();
+
+    if (!u || !p || !m) {
+      setError("Merci d'entrer un username, un password et un mail.");
+      return;
+    }
+
+    if (p !== confirmPassword.trim()) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    const passCheck = validatePassword(p, u);
+    if (!passCheck.ok) {
+      setError(passCheck.reason);
+      return;
+    }
+
+    const mailCheck = validateEmail(m);
+    if (!mailCheck.ok) {
+      setError(mailCheck.reason);
+      return;
+    }
+
+    setLoading(true);
+    try {
+          const response = await fetch("/api/users", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ username: u, password: p, mail: m }),
+    });
+
+
+      const data: RegisterResponse = await response.json();
+      if (!response.ok) {
+        setError(data.message || data.error || "Erreur lors de la création");
+        return;
+      }
+
+      setUsername(username);
+      setPassword(password);
+      setConfirmPassword(password);
+      setMail(mail);
+      setAvatarUrl("/uploads/profil/default.jpeg")
+
+      window.location.href = "/Login"
+    } catch (err) {
+      console.error(err);
+      setError("Erreur réseau, réessaie plus tard.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <div>
+    <main id="mainContent">
+      <div className="min-h-[calc(100vh-8rem)] mb-8 max-w-2xl w-full mx-auto text-center">
+              <br/><br/>
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 border-4 border-[#FEE96E] cursor-pointer">
+          <div className="flex items-center justify-center">
+
+            <div className="w-12 h-12 rounded-full bg-[#FEE96E] flex items-center justify-center">
+              <User className="w-6 h-6 text-[#8B5A3C]" />
+            </div>
+          </div>
+
+          <h1 className="flex items-center justify-center rounded-full">Inscription</h1>
+		  <br/>
+
+          <div className="flex justify-center">
+            <form
+              id="registerForm"
+              className="form-container flex flex-col items-center gap-4"
+              onSubmit={onSubmitRegister}
+            >
+              <div className="form-group w-full text-center">
+                <label htmlFor="username" className="block mb-1">
+                  Nom d'utilisateur
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Nom d'utilisateur"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="username"
+                  className="mx-auto block flex-1 px-6 py-3 rounded-full border-2 border-[#FEE96E] focus:outline-none focus:border-[#8B5A3C]"
+                />
+              </div>
+
+              <div className="form-group w-full text-center">
+                <label htmlFor="mail" className="block mb-1">
+                  Adresse mail
+                </label>
+                <input
+                  type="email"
+                  id="mail"
+                  placeholder="Adresse mail"
+                  value={mail}
+                  onChange={(e) => setMail(e.target.value)}
+                  autoComplete="email"
+                  className="text-[#86592d] flex-1 px-6 py-3 rounded-full border-2 border-[#FEE96E] focus:outline-none focus:border-[#8B5A3C]"
+                />
+              </div>
+
+              <div className="form-group w-full text-center">
+                <label htmlFor="password" className="block mb-1">
+                  Mot de passe
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  className="text-[#86592d] flex-1 px-6 py-3 rounded-full border-2 border-[#FEE96E] focus:outline-none focus:border-[#8B5A3C]"
+                />
+              </div>
+
+              <div className="form-group w-full text-center">
+                <label htmlFor="confirmPassword" className="block mb-1">
+                  Confirmez mot de passe
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Confirmez mot de passe"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
+                  className="text-[#86592d] flex-1 px-6 py-3 rounded-full border-2 border-[#FEE96E] focus:outline-none focus:border-[#8B5A3C]"
+                />
+              </div>
+
+              <button
+                id="registerBtn"
+                className="text-[#86592d] flex-1 px-6 py-3 rounded-full border-2 border-[#FEE96E] bg-[#FEE96E] focus:outline-none focus:border-[#8B5A3C]"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Création..." : "S'enregistrer"}
+              </button>
+
+              {error && (
+                <p id="registerError" className="text-red-600 text-center">
+                  {error}
+                </p>
+              )}
+            </form>
+          </div>
+          </div>
+		  <div className="mt-4 text-[#A67C52]"> Vous avez déjà un compte ?{" "}<a className="text-[#86592d] hover:text-[#734d26]" href="/Login">Cliquez ici</a>
+        </div>
+      </div>
+    <div className="margin-bot w-full">
+    </div>
+    </main>
+    </div>
+  );
+}
