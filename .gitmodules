@@ -77,3 +77,6 @@
 [submodule "Post_CC/Unrealeased/snow-crash"]
 	path = Post_CC/Unrealeased/snow-crash
 	url = https://github.com/Mechard-Organization/snow-crash.git
+[submodule "Post_CC/Unrealeased/libasm"]
+	path = Post_CC/Unrealeased/libasm
+	url = https://github.com/Mechard-Organization/libasm.git
