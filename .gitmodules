@@ -3,10 +3,6 @@
 	path = Netpractice_100
 	url = git@github.com:Mechard-Organization/Netpractice.git
 	branch = main
-[submodule "Cub3D_105"]
-	path = Cub3D_105
-	url = git@github.com:Mechard-Organization/Cub3D.git
-	branch = main
 [submodule "ft_printf_110"]
 	path = ft_printf_110
 	url = git@github.com:Mechard-Organization/Ft_printf.git
