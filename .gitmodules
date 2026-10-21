@@ -62,3 +62,6 @@
 [submodule "42_collaborative_resume_100"]
 	path = 42_collaborative_resume_100
 	url = git@github.com:Mechard-Organization/42_collaborative_resume_100.git
+[submodule "Born2beroot_125"]
+	path = Born2beroot_125
+	url = git@github.com:Mechard-Organization/Born2beroot.git
