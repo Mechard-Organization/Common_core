@@ -58,9 +58,3 @@
 [submodule "Inception_100"]
 	path = Inception_100
 	url = git@github.com:Mechard-Organization/Inception.git
-[submodule "Net_practice_100"]
-	path = Net_practice_100
-	url = git@github.com:Mechard-Organization/Netpractice.git
-[submodule "CubD_105"]
-	path = CubD_105
-	url = git@github.com:Mechard-Organization/Cub3D.git
