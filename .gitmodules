@@ -56,3 +56,6 @@
 [submodule "Cpp"]
 	path = Cpp
 	url = git@github.com:Mechard-Organization/Cpp.git
+[submodule "IRC_125"]
+	path = IRC_125
+	url = git@github.com:Mechard-Organization/IRC.git
