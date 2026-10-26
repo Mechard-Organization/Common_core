@@ -55,3 +55,6 @@
 	path = Inception_100
 	url = git@github.com:Mechard-Organization/Inception.git
 	branch = main
+[submodule "Cub3D_105"]
+	path = Cub3D_105
+	url = git@github.com:Mechard-Organization/Cub3D.git
