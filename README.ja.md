@@ -76,7 +76,7 @@ Common_Core/                           # GitHubリポジトリ: Common_core
 ├── minishell_101/
 ├── So_long_96/
 ├── Cub3D_105/
-├── Cpp/                                # 10個のC++サブモジュール
+├── Cpp/                               # 10個のC++サブモジュール
 │   ├── cpp00_80/
 │   ├── cpp01_90/
 │   ├── ...

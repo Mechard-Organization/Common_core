@@ -76,7 +76,7 @@ Common_Core/                           # GitHub repository: Common_core
 ├── minishell_101/
 ├── So_long_96/
 ├── Cub3D_105/
-├── Cpp/                                # 10 nested C++ submodules
+├── Cpp/                               # 10 nested C++ submodules
 │   ├── cpp00_80/
 │   ├── cpp01_90/
 │   ├── ...

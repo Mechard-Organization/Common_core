@@ -76,7 +76,7 @@ Common_Core/                           # Dépôt GitHub: Common_core
 ├── minishell_101/
 ├── So_long_96/
 ├── Cub3D_105/
-├── Cpp/                                # 10 sous-modules C++ imbriqués
+├── Cpp/                               # 10 sous-modules C++ imbriqués
 │   ├── cpp00_80/
 │   ├── cpp01_90/
 │   ├── ...
