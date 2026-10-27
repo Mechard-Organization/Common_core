@@ -58,6 +58,8 @@
 [submodule "Cub3D_105"]
 	path = Cub3D_105
 	url = git@github.com:Mechard-Organization/Cub3D.git
+	branch = main
 [submodule "Netpractice_105"]
 	path = Netpractice_105
 	url = git@github.com:Mechard-Organization/Netpractice.git
+	branch = main
